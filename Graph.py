@@ -92,3 +92,24 @@ class Graph:
            else:
             return 0;
         return 0;
+    def DFS(self,start,end):
+       stack=[start.Val]
+       result=[]
+       visited={}
+       current_vertex=0
+       visited[start.Val]=True
+       while(len(stack)>0):
+           current_vertex=stack.pop()
+           result.append(current_vertex)
+           if current_vertex==end.Val:
+               break
+     
+           print(self.adjacencyList[current_vertex])
+           for neigh in self.adjacencyList[current_vertex]:
+               print(neigh['node'])
+               print("----------------")
+               if not (neigh['node'] in visited):
+                   stack.append(neigh['node'])
+                   visited[neigh['node']]=True
+  
+       return result
