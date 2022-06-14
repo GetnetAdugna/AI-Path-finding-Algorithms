@@ -113,3 +113,20 @@ class Graph:
                    visited[neigh['node']]=True
   
        return result
+    def BFS(self,start,end):
+        queue=[start.Val];
+        result=[];
+        visited={};
+        current_vertex=0;
+        visited[start.Val]=True
+        while(len(queue)):
+            current_vertex=queue.pop(0)
+            result.append(current_vertex)
+            if current_vertex==end.Val:
+                break
+           
+            for elements in self.adjacencyList[current_vertex]:
+                if(not (elements['node']in visited)):
+                    visited[elements['node']]=True
+                    queue.append(elements['node'])
+        return result
