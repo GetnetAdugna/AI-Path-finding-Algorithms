@@ -130,3 +130,17 @@ class Graph:
                     visited[elements['node']]=True
                     queue.append(elements['node'])
         return result
+    def Adjacency_matrix_represenataion(self,graph):
+        for elements in graph.adjacencyList:
+          
+            for elem in graph.adjacencyList:
+                list_l.append(graph.isEdge(elements,elem));
+                if(graph.isEdge(elements,elem)==1 and graph.isEdge(elem,elements)==1):
+                    print(f' {elements} <=> {elem}',graph.isEdge(elements,elem))
+                else:
+                    print(f' {elements} => {elem}',graph.isEdge(elements,elem))
+    
+        print(graph.adjacencyList)
+        print(list_l)
+        val=np.reshape(list_l,(len(graph.adjacencyList),len(graph.adjacencyList)))
+        print(val)
