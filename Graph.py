@@ -144,3 +144,39 @@ class Graph:
         print(list_l)
         val=np.reshape(list_l,(len(graph.adjacencyList),len(graph.adjacencyList)))
         print(val)
+    
+    def Dijkstra(self,start,finish): 
+        nodes=priorityQueue()
+        distances={}
+        previous={}
+        smallest=0
+        path_val=[]
+        reversed_path_val=[]
+        for vertex in self.adjacencyList:
+            if vertex==start.Val: 
+                distances[vertex]=0;
+                nodes.enqueue(vertex,0)
+            else:
+                distances[vertex]=float('inf')
+                nodes.enqueue(vertex,float('inf'))
+            previous[vertex]=None
+        while(len(nodes.values)):
+            smallest=nodes.dequeue()['value']
+            if(smallest==finish.Val):
+                while(previous[smallest]):   
+                    path_val.append(smallest)
+                    smallest=previous[smallest]
+                break
+            if(smallest or distances[smallest]!=float('inf')):
+                for neigbor in range (len(self.adjacencyList[smallest])):
+                    nextNode=self.adjacencyList[smallest][neigbor]
+                    neig_cand=distances[smallest]+nextNode['weight']
+                    next_neig=nextNode['node']
+                    if(neig_cand<distances[next_neig]):
+                        distances[next_neig]=neig_cand
+                        previous[next_neig]=smallest;
+                        nodes.enqueue(next_neig,neig_cand)
+        for i in range(len(path_val)): 
+            reversed_path_val.insert(0,path_val[i])
+        reversed_path_val.insert(0,start.Val)    
+        return reversed_path_val
