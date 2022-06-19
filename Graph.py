@@ -180,3 +180,57 @@ class Graph:
             reversed_path_val.insert(0,path_val[i])
         reversed_path_val.insert(0,start.Val)    
         return reversed_path_val
+    
+    
+    def A_star(self,start,stop):
+        unvisited_nodes = set([start.Val])
+        visited_nodes=set([])
+        position_of_Node={}
+        position_of_Node[start.Val] = 0
+        watched_Nodes=[]
+        par = {}
+        par[start.Val] = start.Val
+        val=[]
+        while(len(unvisited_nodes)>0):
+            n=None
+            
+            for v in unvisited_nodes:
+                if n==None or position_of_Node[v]+self.h(v)< position_of_Node[n] +self.h(n):
+                    n=v
+  
+            if n==None:
+                
+                return None
+            if n == stop.Val:
+                # print("true")
+                reconst_path=[]
+                while par[n] !=n:
+                    reconst_path.append(n)
+                    n=par[n]
+
+                reconst_path.append(start.Val)
+                # print("hey")
+                reconst_path.reverse()
+                print('Path found: {}'.format(reconst_path))
+                return reconst_path
+          
+            
+            for i in range(len(self.adjacencyList[n])):
+                if ((self.adjacencyList[n][i]['node'] not in unvisited_nodes) and (self.adjacencyList[n][i]['node'] not in visited_nodes)):
+                    unvisited_nodes.add(self.adjacencyList[n][i]['node'])
+                    par[self.adjacencyList[n][i]['node']]=n
+                    position_of_Node[self.adjacencyList[n][i]['node']]=position_of_Node[n]+self.adjacencyList[n][i]['weight']
+                else:
+                  
+                    if position_of_Node[self.adjacencyList[n][i]['node']]>position_of_Node[n]+self.adjacencyList[n][i]['weight']:
+                        position_of_Node[self.adjacencyList[n][i]['node']]=position_of_Node[n]+self.adjacencyList[n][i]['weight']
+                        par[self.adjacencyList[n][i]['node']]=n
+                        if self.adjacencyList[n][i]['node'] in visited_nodes:
+                            
+                            watched_Nodes.append(self.adjacencyList[n][i]['node'])
+                            visited_nodes.remove(self.adjacencyList[n][i]['node'])
+                            unvisited_nodes.add(self.adjacencyList[n][i]['node'])                         
+            unvisited_nodes.remove(n)
+            visited_nodes.add(n)
+        print("path does not exit")
+        return val
