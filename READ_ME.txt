@@ -7,4 +7,4 @@
 ---the txt files are the data we get from the book and also the randomly generated nodes list.
 --when run it might take some time since it tries a lot of possibilities so wait till it finishes especially for matploit.py
   GETNET ADUGNA ABITE
-  UGR /3381/12
+  
